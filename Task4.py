@@ -1,0 +1,34 @@
+class BankAccount:
+	def __init__(self, owner: str, initial_balance: float = 0.0):
+		if initial_balance < 0:
+			raise ValueError()
+		self.__owner = owner
+		self.__initial_balance = initial_balance
+
+	@property
+	def initial_balance(self):
+		return self.__initial_balance
+	
+
+	@property
+	def owner(self):
+		return self.__owner
+
+	def deposit(self, amount: float) -> None:
+		if amount <=0:
+			raise ValueError("Deposit amount must be positive")
+		self.__initial_balance += amount
+	
+	def withdraw(self, amount: float) -> None:
+		if amount <= 0:
+			raise ValueError('Withdrawal amount must be positive')
+		if self.__initial_balance - amount < 0:
+			raise ValueError("Insufficient funds for withdrawal")
+		self.__initial_balance -= amount
+
+firstAcc = BankAccount("Lev", 5)
+print(firstAcc.owner)
+firstAcc.deposit(5)
+print(firstAcc.initial_balance)
+firstAcc.withdraw(7)
+print(firstAcc.initial_balance)
