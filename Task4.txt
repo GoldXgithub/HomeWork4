@@ -26,9 +26,20 @@ class BankAccount:
 			raise ValueError("Insufficient funds for withdrawal")
 		self.__initial_balance -= amount
 
+	def transfer(self, target_account: 'BankAccount', amount: float) -> None:
+		if amount <= 0:
+            		raise ValueError('Transfer amount must be positive')
+		if self.__initial_balance - amount < 0:
+			raise ValueError("Insufficient funds for transfer")
+		self.__initial_balance -= amount
+		target_account.__initial_balance += amount
+
 firstAcc = BankAccount("Lev", 5)
+secondAcc = BankAccount("Rita", 0)
 print(firstAcc.owner)
 firstAcc.deposit(5)
 print(firstAcc.initial_balance)
 firstAcc.withdraw(7)
 print(firstAcc.initial_balance)
+firstAcc.transfer(secondAcc, 1)
+print(secondAcc.initial_balance)
